@@ -3,3 +3,7 @@ function Trips() {
 }
 
 export default Trips;
+
+{
+  /* About Section */
+}
