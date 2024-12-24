@@ -10,11 +10,13 @@ function App() {
   return (
     <>
       <HeroSection />
-      <Trips />
-      <OurServices />
-      <Plans />
-      <Reviews />
-      <ContactUs />
+      <div style={{ width: "85%", margin: "auto", padding: "auto" }}>
+        <Trips />
+        <OurServices />
+        <Plans />
+        <Reviews />
+        <ContactUs />
+      </div>
       <Footer />
     </>
   );

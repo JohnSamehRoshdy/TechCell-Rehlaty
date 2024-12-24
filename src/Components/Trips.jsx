@@ -50,29 +50,26 @@ const CardCarousel = () => {
       description: "5 أيام بتكلفة 1500 ريال",
       imgSrc: "./photos/ryiad.png",
     },
-    // Add more cards if needed
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextSlide = () => {
-    const step = window.innerWidth < 640 ? 1 : 4; // 4 cards for large screens, 1 for small screens
     setCurrentIndex((prevIndex) =>
-      prevIndex + step < cards.length ? prevIndex + step : 0
+      prevIndex + 4 < cards.length ? prevIndex + 4 : 0
     );
   };
 
   const prevSlide = () => {
-    const step = window.innerWidth < 640 ? 1 : 4; // 4 cards for large screens, 1 for small screens
     setCurrentIndex((prevIndex) =>
-      prevIndex - step >= 0 ? prevIndex - step : cards.length - step
+      prevIndex - 4 >= 0 ? prevIndex - 4 : cards.length - 4
     );
   };
 
   return (
     <div className="py-8 px-6">
-      {/* Header with pagination arrows */}
-      <div className="flex items-center justify-between mb-6">
+      {/* Header with pagination arrows (only on larger screens) */}
+      <div className="hidden sm:flex items-center justify-between mb-6">
         <div className="flex items-center space-x-4">
           <button
             onClick={prevSlide}
@@ -88,7 +85,7 @@ const CardCarousel = () => {
           </button>
         </div>
         <div>
-          <h3 className="text-xl font-bold text-right mb-2">
+          <h3 className="text-xl font-bold text-right mb-2 text-gray-500">
             قم بزيارة العالم
           </h3>
           <h2 className="text-4xl font-bold text-right">الرحلات التي نقدمها</h2>
@@ -96,23 +93,25 @@ const CardCarousel = () => {
       </div>
 
       {/* Cards Container */}
-      <div className="flex gap-4 overflow-hidden justify-center">
+      <div className="block sm:flex gap-4  justify-center  ">
         {cards
-          .slice(currentIndex, currentIndex + (window.innerWidth < 640 ? 1 : 4)) // Responsive: 1 card for mobile, 4 for larger screens
+          .slice(
+            currentIndex,
+            currentIndex +
+              (window.matchMedia("(min-width: 640px)").matches ? 4 : 1)
+          )
           .map(({ id, title, description, imgSrc }) => (
             <div
               key={id}
-              className="relative flex-shrink-0 sm:w-1/5 bg-white shadow-lg rounded-lg overflow-hidden h-96" // Increased height and reduced width
+              className="relative flex-shrink-0 w-full sm:w-1/4 bg-white shadow-lg rounded-lg overflow-hidden h-[500px] mb-4"
             >
-              {/* Image as background */}
               <div
-                className="h-full bg-cover bg-center"
+                className="h-full bg-cover bg-center "
                 style={{
                   backgroundImage: `url(${imgSrc})`,
                 }}
               ></div>
 
-              {/* Overlay for text */}
               <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 w-4/5 bg-white/90 p-4 rounded-2xl shadow-md">
                 <h3 className="text-lg font-bold mb-2 text-right">{title}</h3>
                 <p className="text-sm text-gray-600 text-right">
