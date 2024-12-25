@@ -1,4 +1,5 @@
 import { FaCheck } from "react-icons/fa";
+import { MdKeyboardArrowLeft } from "react-icons/md";
 
 const Plans = () => {
   const cards = [
@@ -46,35 +47,38 @@ const Plans = () => {
         {cards.map((card, index) => (
           <div
             key={index}
-            className="  bg-[rgba(255,231,172,1)] rounded-lg p-6  transition duration-300 ease-in-out hover:bg-[rgba(70,54,139,1)] hover:shadow-lg hover:scale-105 w-11/12 md:w-auto mx-auto border border-black shadow-lg shadow-black "
+            className="group bg-[rgba(255,231,172,1)] rounded-lg p-6 transition duration-300 ease-in-out hover:bg-[rgba(70,54,139,1)] hover:shadow-lg hover:scale-105 w-11/12 md:w-auto mx-auto border border-black shadow-lg shadow-black"
             style={{ direction: "rtl" }}
           >
-            <p className="mb-4 transition duration-300 hover:text-white">
-              <span className="text-2xl font-bold transition duration-300 hover:text-white">
+            <p className="mb-4 text-gray-800 group-hover:text-white transition duration-300">
+              <span className="text-2xl font-bold group-hover:text-white">
                 ${card.price}
               </span>{" "}
               <span>/للشخص</span>
             </p>
-            <h3 className="text-xl font-bold mb-2 transition duration-300 hover:text-white">
+            <h3 className="text-xl font-bold mb-2 text-gray-800 group-hover:text-white transition duration-300">
               {card.title}
             </h3>
-            <p className="text-gray-600 mb-4 transition duration-300 hover:text-white">
+            <p className="text-gray-600 mb-4 group-hover:text-white transition duration-300">
               {card.description}
             </p>
-            <hr className="border-gray-300 mb-4 transition duration-300 hover:border-white" />
-            <ul className="list-none pl-0 text-gray-600 transition duration-300 hover:text-white">
+            <hr className="border-gray-300 mb-4 group-hover:border-white transition duration-300" />
+            <ul className="list-none pl-0 text-gray-600 group-hover:text-white transition duration-300">
               {card.features.map((feature, i) => (
                 <li
                   key={i}
-                  className="mb-2 flex items-center transition duration-300 hover:text-white"
+                  className="mb-2 flex items-center group-hover:text-white transition duration-300"
                 >
-                  <FaCheck className="mr-2 text-green-500" />
+                  <FaCheck className="mr-2 text-green-500 group-hover:text-white" />
                   {feature}
                 </li>
               ))}
             </ul>
-            <button className="mt-4 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded transition duration-300 hover:bg-white hover:text-indigo-500 border border-indigo-500 hover:border-white">
-              احجز الآن
+            <button className="mt-4 bg-none text-black  font-bold py-2 px-28 rounded-2xl transition duration-300 hover:text-indigo-500 border border-black hover:border-white group-hover:text-white group-hover:border-white flex items-center justify-center mx-auto space-x-reverse space-x-3">
+              <span>احجز الآن</span>
+              <span className="bg-white text-black rounded-full p-1 text-xl flex items-center justify-center">
+                <MdKeyboardArrowLeft />
+              </span>
             </button>
           </div>
         ))}

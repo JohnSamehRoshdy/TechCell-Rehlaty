@@ -103,7 +103,7 @@ const CardCarousel = () => {
           .map(({ id, title, description, imgSrc }) => (
             <div
               key={id}
-              className="relative flex-shrink-0 w-full sm:w-1/4 bg-white shadow-lg rounded-lg overflow-hidden h-[500px] mb-4"
+              className="relative flex-shrink-0 w-full sm:w-1/4 bg-white  rounded-lg overflow-hidden h-[500px] mb-4"
             >
               <div
                 className="h-full bg-cover bg-center "
