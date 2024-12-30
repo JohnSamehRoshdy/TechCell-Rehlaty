@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { FaCheck } from "react-icons/fa";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { IoCheckmarkCircleSharp } from "react-icons/io5";
 const Plans = () => {
@@ -16,7 +15,7 @@ const Plans = () => {
           throw new Error("Failed to fetch data");
         }
         const data = await response.json();
-        console.log("API Response:", data.data);
+        // console.log("API Response:", data.data);
 
         // Parse features with proper handling of single quotes
         const parsedPlans = data.data.map((plan) => {
@@ -34,7 +33,7 @@ const Plans = () => {
           }
         });
 
-        console.log("Parsed Plans:", parsedPlans);
+        // console.log("Parsed Plans:", parsedPlans);
         setPlans(parsedPlans);
       } catch (err) {
         console.error("Fetch error:", err.message);
