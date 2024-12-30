@@ -27,7 +27,7 @@ const reviews = [
     img: "./photos/rev3.jfif",
   },
   {
-    id: 1,
+    id: 4,
     name: "محمد صلاح",
     review:
       "كانت تجربة مميزة مع خدمات رائعة قضيت أفضل إجازة لي من فترة طويلة. أنصح بالتعامل مع شركة رحلتي بدون تردد.",
@@ -35,7 +35,7 @@ const reviews = [
     img: "./photos/rev1.jfif", // Replace with an actual image URL
   },
   {
-    id: 2,
+    id: 5,
     name: "عمر مرموش",
     review:
       "تقدم شركة رحلتي خدمات مناسبة جدًا لرجال الأعمال. هذا ما ساعدني في رحلتي وجعلني أختصر جدًا من مشاكل الحجوزات.",
@@ -61,7 +61,7 @@ const Reviews = () => {
   };
 
   return (
-    <div className="p-6">
+    <div id="reviews" className="p-6">
       <h2 className="text-xl font-semibold text-center text-gray-500 mb-2">
         قالوا عننا
       </h2>
@@ -72,12 +72,12 @@ const Reviews = () => {
         {reviews.slice(currentIndex, currentIndex + 3).map((review) => (
           <div
             key={review.id}
-            className="bg-purple-50 p-4 rounded-lg w-1/3 text-right"
+            className="bg-purple-50 p-4 rounded-lg w-1/3 text-right "
           >
-            <div className="text-yellow-500 text-xl mb-2">
+            <div className="text-yellow-500 text-xl mb-2  ">
               {"★".repeat(review.stars)}
             </div>
-            <div className="flex items-center justify-end gap-2 mb-4">
+            <div className="flex items-center  md:justify-end gap-2 mb-4">
               <div>
                 <h3 className="font-bold text-xl">{review.name}</h3>
               </div>

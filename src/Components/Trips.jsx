@@ -1,58 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const CardCarousel = () => {
-  const cards = [
-    {
-      id: 1,
-      title: "الرياض",
-      description: "2 أيام بتكلفة 1000 ريال",
-      imgSrc: "./photos/ryiad.png",
-    },
-    {
-      id: 2,
-      title: "القاهرة",
-      description: "3 أيام بتكلفة 1250 ريال",
-      imgSrc: "./photos/cairo.png",
-    },
-    {
-      id: 3,
-      title: "دبي",
-      description: "3 أيام بتكلفة 2500 ريال",
-      imgSrc: "./photos/dubai.png",
-    },
-    {
-      id: 4,
-      title: "دمشق",
-      description: "5 أيام بتكلفة 1500 ريال",
-      imgSrc: "./photos/ryiad.png",
-    },
-    {
-      id: 5,
-      title: "ابوظبى",
-      description: "2 أيام بتكلفة 1000 ريال",
-      imgSrc: "./photos/dubai.png",
-    },
-    {
-      id: 6,
-      title: "الاقصر",
-      description: "3 أيام بتكلفة 1250 ريال",
-      imgSrc: "./photos/cairo.png",
-    },
-    {
-      id: 7,
-      title: "الاسكندرية",
-      description: "3 أيام بتكلفة 2500 ريال",
-      imgSrc: "./photos/istanbul.png",
-    },
-    {
-      id: 8,
-      title: "أسوان",
-      description: "5 أيام بتكلفة 1500 ريال",
-      imgSrc: "./photos/ryiad.png",
-    },
-  ];
-
+  const [cards, setCards] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://travel.digital-vision-solutions.com/api/trips"
+        ); // Replace with your API endpoint
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const data = await response.json();
+        const trips = data.data;
+        // console.log(trips);
+        const formattedData = trips.map((item) => ({
+          id: item.id,
+          title: item.city,
+          description: `${item.day_num} أيام بتكلفة ${item.cost} ريال`,
+          imgSrc: item.image_link,
+        }));
+        setCards(formattedData);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const nextSlide = () => {
     setCurrentIndex((prevIndex) =>
@@ -92,8 +70,11 @@ const CardCarousel = () => {
         </div>
       </div>
 
+      {/* Error Message */}
+      {error && <p className="text-red-500 text-center">{error}</p>}
+
       {/* Cards Container */}
-      <div className="block sm:flex gap-4  justify-center  ">
+      <div className="block sm:flex gap-4 justify-center">
         {cards
           .slice(
             currentIndex,
@@ -103,10 +84,10 @@ const CardCarousel = () => {
           .map(({ id, title, description, imgSrc }) => (
             <div
               key={id}
-              className="relative flex-shrink-0 w-full sm:w-1/4 bg-white  rounded-lg overflow-hidden h-[500px] mb-4"
+              className="relative flex-shrink-0 w-full sm:w-1/4 bg-white rounded-lg overflow-hidden h-[500px] mb-4"
             >
               <div
-                className="h-full bg-cover bg-center "
+                className="h-full bg-cover bg-center"
                 style={{
                   backgroundImage: `url(${imgSrc})`,
                 }}

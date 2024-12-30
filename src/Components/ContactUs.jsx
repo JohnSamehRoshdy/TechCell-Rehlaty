@@ -1,133 +1,206 @@
+import { useState } from "react";
+
 const ContactUs = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionResult, setSubmissionResult] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setIsSubmitting(true);
+    setSubmissionResult(null);
+
+    try {
+      const response = await fetch(
+        "https://travel.digital-vision-solutions.com/api/contact",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, email, message }),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          errorData?.message || `HTTP error! status: ${response.status}`
+        );
+      }
+
+      setSubmissionResult({
+        success: true,
+        message: "تم إرسال الرسالة بنجاح!",
+      });
+      setName("");
+      setEmail("");
+      setMessage("");
+    } catch (error) {
+      console.error("خطأ في إرسال النموذج:", error);
+      setSubmissionResult({
+        success: false,
+        message:
+          error.message || "فشل إرسال الرسالة. يرجى المحاولة مرة أخرى لاحقًا.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    <div className="py-12 px-4 md:px-24">
-      {" "}
-      {/* Removed grey background */}
-      <div className="max-w-7xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden md:flex flex-row-reverse">
-        {" "}
-        {/* Added flex-row-reverse */}
-        <div className="md:w-2/3 p-8 bg-gray-50">
-          {" "}
-          {/* Added background color */}
-          <h2 className="text-2xl font-semibold mb-6 text-center md:text-right">
-            هل لديك سؤال ؟
-          </h2>
-          <form className="space-y-4 text-right">
-            {" "}
-            {/* Added text-right to the form */}
-            <div>
+    <div
+      id="contact"
+      className="flex flex-col md:flex-row-reverse items-center md:justify-between p-6 md:p-12 gap-6"
+    >
+      {/* Right Section (Form) */}
+      <div className="w-full md:w-1/2 flex flex-col items-end order-1 md:order-1">
+        <h2 className="text-lg font-semibold text-right text-gray-500 mb-2">
+          هل لديك سؤال ؟
+        </h2>
+        <h1 className="text-3xl font-bold text-right mb-8">
+          يسعدنا التواصل معك
+        </h1>
+        <div className="bg-[rgba(255,231,172,1)] p-6 md:p-8 w-full rounded-xl shadow-[6px_6px_0_0_rgba(0,0,0,1)] border border-black">
+          <form
+            className="space-y-4 flex flex-col items-end"
+            onSubmit={handleSubmit}
+          >
+            {submissionResult && (
+              <div
+                className={
+                  submissionResult.success ? "text-green-500" : "text-red-500"
+                }
+              >
+                {submissionResult.message}
+              </div>
+            )}
+            <div className="w-full">
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-2xl font-medium text-right mb-2"
               >
                 الاسم
               </label>
               <input
                 type="text"
                 id="name"
-                className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-right"
                 placeholder="يرجى تسجيل اسمك الكامل"
-              />{" "}
-              {/* Added text-right to input */}
+                className="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 text-right"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
             </div>
-            <div>
+            <div className="w-full">
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-2xl font-medium text-right mb-2"
               >
                 البريد الإلكتروني
               </label>
               <input
                 type="email"
                 id="email"
-                className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-right"
                 placeholder="سجل بريدك الشخصي"
-              />{" "}
-              {/* Added text-right to input */}
+                className="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 text-right"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
             </div>
-            <div>
+            <div className="w-full">
               <label
-                htmlFor="subject"
-                className="block text-sm font-medium text-gray-700"
+                htmlFor="message"
+                className="block text-2xl font-medium text-right mb-2"
               >
                 الموضوع
               </label>
               <textarea
-                id="subject"
+                id="message"
                 rows="4"
-                className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-right"
                 placeholder="ما هو السؤال أو المشكلة التي لديك؟"
-              ></textarea>{" "}
-              {/* Added text-right to textarea */}
+                className="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 text-right"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                required
+              />
             </div>
-            <div className="flex justify-center">
-              <button
-                type="submit"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
-              >
-                أرسل الرسالة
-              </button>{" "}
-              {/* Reduced button width */}
-            </div>
+            <button
+              type="submit"
+              className="w-1/2 p-3 bg-black text-white rounded-md hover:bg-gray-800 transition"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "جاري الإرسال..." : "أرسل الرسالة"}
+            </button>
           </form>
         </div>
-        {/* Left Section (Points) */}
-        <div className="md:w-1/3 p-8 md:border-l border-gray-200 text-right">
-          {" "}
-          {/* Added text-right and border-l */}
-          <h2 className="text-2xl font-semibold mb-6 text-center md:text-right">
-            يسعدنا التواصل معك
-          </h2>
-          <div className="space-y-6">
-            <div className="flex flex-col items-center md:items-end">
-              {" "}
-              {/* Changed items-start to items-end */}
-              <img
-                src="https://via.placeholder.com/50/0000FF/FFFFFF"
-                alt="Help"
-                className="w-12 h-12 mb-2 rounded-full"
-              />
-              <div>
-                <h3 className="font-medium">نقدم لك المساعدة</h3>
-                <p className="text-sm text-gray-600 text-center md:text-right">
-                  إن كان لديك أي مشكلة في البلد الذي تسافر إليه سنقوم بمساعدك في
-                  هذا الموضوع.
-                </p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center md:items-end">
-              {" "}
-              {/* Changed items-start to items-end */}
-              <img
-                src="https://via.placeholder.com/50/008000/FFFFFF"
-                alt="Contact"
-                className="w-12 h-12 mb-2 rounded-full"
-              />
-              <div>
-                <h3 className="font-medium">للتواصل</h3>
-                <p className="text-sm text-gray-600 text-center md:text-right">
-                  يمكنك التواصل معنا عبر الفورم أو عبر البريد الإلكتروني:
-                  company@mail.com
-                </p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center md:items-end">
-              {" "}
-              {/* Changed items-start to items-end */}
-              <img
-                src="https://via.placeholder.com/50/A0522D/FFFFFF"
-                alt="Working Hours"
-                className="w-12 h-12 mb-2 rounded-full"
-              />
-              <div>
-                <h3 className="font-medium">أوقات الدوام</h3>
-                <p className="text-sm text-gray-600 text-center md:text-right">
-                  يمكنك التواصل معنا يومياً أثناء أوقات الدوام من الساعة 9
-                  صباحاً حتى 6 مساءاً.
-                </p>
-              </div>
-            </div>
+      </div>
+
+      {/* Left Section (unchanged) */}
+      <div className="w-full md:w-1/2 space-y-8 order-2 md:order-2">
+        {/* Item 1 */}
+        <div className="flex flex-col-reverse md:flex-row items-center justify-end">
+          <div className="me-4">
+            <h3 className="font-bold text-lg text-center md:text-right">
+              نقدر لك المساعدة
+            </h3>
+            <p className="text-gray-700 text-center md:text-right">
+              إن كان لديك أي مشكلة في البلد الذي تسافر إليه سنقوم بمساعدتك في
+              هذا الموضوع.
+            </p>
           </div>
+          <img
+            src="./photos/contact1.png"
+            alt="Help Icon"
+            className="w-32 h-32 mb-4 md:mb-0"
+          />
+        </div>
+
+        {/* Item 2 */}
+        <div className="flex flex-col-reverse md:flex-row items-center justify-end">
+          <div className="me-4">
+            <h3 className="font-bold text-lg text-center md:text-right">
+              للتواصل
+            </h3>
+            <p className="text-gray-700 text-center md:text-right">
+              يمكنك التواصل معنا عبر الدوام أو عبر البريد الإلكتروني:
+              <br />
+              <a
+                href="mailto:company@mail.com"
+                className="text-blue-600 underline text-right"
+              >
+                company@mail.com
+              </a>
+            </p>
+          </div>
+          <img
+            src="./photos/contact2.png"
+            alt="Contact Icon"
+            className="w-32 h-32 mb-4 md:mb-0"
+          />
+        </div>
+
+        {/* Item 3 */}
+        <div className="flex flex-col-reverse md:flex-row items-center justify-end">
+          <div className="me-4">
+            <h3 className="font-bold text-lg text-center md:text-right">
+              أوقات الدوام
+            </h3>
+            <p className="text-gray-700 text-center md:text-right">
+              يمكنك التواصل معنا يومياً أثناء أوقات الدوام
+              <br />
+              من الساعة 9 صباحاً حتى 6 مساءً.
+            </p>
+          </div>
+          <img
+            src="./photos/contact3.png"
+            alt="Work Hours Icon"
+            className="w-32 h-32 mb-4 md:mb-0"
+          />
         </div>
       </div>
     </div>
