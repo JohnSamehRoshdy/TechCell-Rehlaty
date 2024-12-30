@@ -2,6 +2,7 @@ import { useState } from "react";
 import { HiMiniPlayCircle } from "react-icons/hi2";
 import { IoIosArrowDropleft } from "react-icons/io";
 import { LuMouse } from "react-icons/lu";
+import { MdKeyboardArrowLeft } from "react-icons/md";
 
 const HeroSection = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,8 +15,10 @@ const HeroSection = () => {
       {/* Navbar */}
       <nav className="absolute top-0 w-full flex items-center justify-between px-6 py-4 bg-gradient-to-b from-black/50 to-transparent">
         {/* Logo */}
-        <div className="text-white text-xl font-bold flex">
-          <HiMiniPlayCircle />
+        <div className="text-white text-xl font-bold md:flex hidden items-center ">
+          <div className="me-2">
+            <HiMiniPlayCircle />
+          </div>
           <div>يوتيوب</div>
         </div>
 
@@ -42,22 +45,21 @@ const HeroSection = () => {
             </a>
           </li>
         </ul>
-        <div className="text-white text-xl font-bold flex">
-          <div>.رحلاتى</div>
-        </div>
-
         {/* Mobile Menu Icon */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="md:hidden text-white text-2xl"
+          className="md:hidden text-black text-2xl bg-white p-1 rounded-lg"
         >
           ☰
         </button>
+        <div className="text-white text-xl font-bold flex">
+          <div>.رحلاتى</div>
+        </div>
       </nav>
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="absolute top-14 right-6 bg-black/70 text-white py-4 px-6 rounded-lg space-y-4 md:hidden">
+        <div className="absolute top-14 left-6 bg-black/70 text-white py-4 px-6 rounded-lg space-y-4 md:hidden">
           <a href="#services" className="block hover:text-yellow-500">
             الخدمات
           </a>
@@ -83,7 +85,9 @@ const HeroSection = () => {
           ولعائلتك
         </p>
         <button className="mt-8 px-6 py-3 bg-yellow-500 text-black rounded-full shadow-md hover:bg-yellow-600 flex">
-          <IoIosArrowDropleft />
+          <div className="bg-white text-black rounded-full p-1 text-lg flex items-center justify-center me-3">
+            <MdKeyboardArrowLeft />
+          </div>
           <div>احجز الآن</div>
         </button>
         <div className="mt-12 flex flex-col items-center">
