@@ -88,9 +88,9 @@ const HeroSection = () => {
         </button>
         <div className="mt-12 flex flex-col items-center">
           <p className="text-lg">تابع للأسفل</p>
-          <div className="mt-2 w-8 h-8 border-2 border-white rounded-full flex items-center justify-center">
-            <div className="w-2 h-2 bg-white rounded-full animate-bounce">
-              <LuMouse />
+          <div className="mt-2   rounded-full flex items-center justify-center">
+            <div className=" w-12 h-12 flex justify-center items-center rounded-full animate-bounce">
+              <LuMouse size={32} />
             </div>
           </div>
         </div>

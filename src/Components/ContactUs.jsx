@@ -1,51 +1,27 @@
 import { useState } from "react";
+import { sendContactForm } from "../api/contact";
 
 const ContactUs = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [msg, setMsg] = useState("");
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submissionResult, setSubmissionResult] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setIsSubmitting(true);
-    setSubmissionResult(null);
+    setMessage("");
 
     try {
-      const response = await fetch(
-        "https://travel.digital-vision-solutions.com/api/contact",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ name, email, message }),
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(
-          errorData?.message || `HTTP error! status: ${response.status}`
-        );
-      }
-
-      setSubmissionResult({
-        success: true,
-        message: "تم إرسال الرسالة بنجاح!",
-      });
+      const response = await sendContactForm(name, email, msg);
+      setMessage("تم إرسال الرسالة بنجاح!");
+      console.log("Response:", response);
       setName("");
       setEmail("");
-      setMessage("");
+      setMsg("");
     } catch (error) {
-      console.error("خطأ في إرسال النموذج:", error);
-      setSubmissionResult({
-        success: false,
-        message:
-          error.message || "فشل إرسال الرسالة. يرجى المحاولة مرة أخرى لاحقًا.",
-      });
+      setMessage("فشل إرسال الرسالة. يرجى المحاولة مرة أخرى لاحقًا.");
     } finally {
       setIsSubmitting(false);
     }
@@ -69,15 +45,8 @@ const ContactUs = () => {
             className="space-y-4 flex flex-col items-end"
             onSubmit={handleSubmit}
           >
-            {submissionResult && (
-              <div
-                className={
-                  submissionResult.success ? "text-green-500" : "text-red-500"
-                }
-              >
-                {submissionResult.message}
-              </div>
-            )}
+            <div className="text-red-500">{message}</div>
+
             <div className="w-full">
               <label
                 htmlFor="name"
@@ -124,8 +93,8 @@ const ContactUs = () => {
                 rows="4"
                 placeholder="ما هو السؤال أو المشكلة التي لديك؟"
                 className="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 text-right"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
+                value={msg}
+                onChange={(e) => setMsg(e.target.value)}
                 required
               />
             </div>
