@@ -1,26 +1,32 @@
+import { useEffect, useState } from "react";
+
 const OurServices = () => {
-  const services = [
-    {
-      title: "رحلات ميدانية",
-      description:
-        "لن تكون إنجازاتك مملة معنا فهناك الكثير من الخطط والرحلات المختلفة.",
-      imgSrc: "./photos/telfric.png", // Replace with your image path
-    },
-    {
-      title: "حجوزات فندقية",
-      description:
-        "لا تقلق حول مكان إقامتك، فنحن نهتم بكامل الحجوزات الخاصة بك.",
-      imgSrc: "./photos/luggage.png", // Replace with your image path
-    },
-    {
-      title: "دليل سياحي",
-      description: "نقدم لك خدمات الإرشاد السياحي لبناء خطط سفر مميزة.",
-      imgSrc: "./photos/compass.png", // Replace with your image path
-    },
-  ];
+  const [services, setServices] = useState([]);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://travel.digital-vision-solutions.com/api/services"
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const data = await response.json();
+        // console.log(data);
+
+        setServices(data.data);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
-    <div className="py-12 px-4 text-center">
+    <div id="services" className="py-12 px-4 text-center">
       {/* Heading */}
       <h2 className="text-lg font-semibold text-gray-500 mb-2">
         تمتع في رحلتك
@@ -37,7 +43,7 @@ const OurServices = () => {
             className="flex flex-col items-center text-center space-y-4 "
           >
             <img
-              src={service.imgSrc}
+              src={service.icon_link}
               alt={service.title}
               className="w-40 h-40"
             />
