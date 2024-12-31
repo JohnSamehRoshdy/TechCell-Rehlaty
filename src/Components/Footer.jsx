@@ -4,7 +4,7 @@ import { FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-gray-300 py-8">
+    <footer className="bg-[rgba(25,25,25,1)] text-gray-300 py-8">
       <div className="container mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8 text-right">
         {/* Site Links */}
         <div>

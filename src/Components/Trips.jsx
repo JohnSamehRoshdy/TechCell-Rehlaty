@@ -31,7 +31,7 @@ const CardCarousel = () => {
 
     fetchData();
   }, []);
-
+  console.log(cards);
   const nextSlide = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex + 4 < cards.length ? prevIndex + 4 : 0
@@ -45,7 +45,7 @@ const CardCarousel = () => {
   };
 
   return (
-    <div className="py-8 px-6">
+    <div id="trips" className="py-8 px-6">
       {/* Header with pagination arrows (only on larger screens) */}
       <div className="hidden sm:flex items-center justify-between mb-6">
         <div className="flex items-center space-x-4">
@@ -84,7 +84,7 @@ const CardCarousel = () => {
           .map(({ id, title, description, imgSrc }) => (
             <div
               key={id}
-              className="relative flex-shrink-0 w-full sm:w-1/4 bg-white rounded-lg overflow-hidden h-[500px] mb-4"
+              className="relative flex-shrink-0 w-full sm:w-1/4 bg-white rounded-lg overflow-hidden h-[400px] mb-4"
             >
               <div
                 className="h-full bg-cover bg-center"

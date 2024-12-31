@@ -7,6 +7,13 @@ const ContactUs = () => {
   const [msg, setMsg] = useState("");
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [emailError, setEmailError] = useState("");
+
+  const validateEmail = (email) => {
+    // Basic email validation regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,10 +27,24 @@ const ContactUs = () => {
       setName("");
       setEmail("");
       setMsg("");
+
+      // Clear the success message after 3 seconds
+      setTimeout(() => setMessage(""), 3000);
     } catch (error) {
       setMessage("فشل إرسال الرسالة. يرجى المحاولة مرة أخرى لاحقًا.");
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleEmailChange = (e) => {
+    const inputEmail = e.target.value;
+    setEmail(inputEmail);
+
+    if (!validateEmail(inputEmail)) {
+      setEmailError("يرجى إدخال بريد إلكتروني صالح");
+    } else {
+      setEmailError("");
     }
   };
 
@@ -45,7 +66,7 @@ const ContactUs = () => {
             className="space-y-4 flex flex-col items-end"
             onSubmit={handleSubmit}
           >
-            <div className="text-red-500">{message}</div>
+            <div className="text-green-500 text-right">{message}</div>
 
             <div className="w-full">
               <label
@@ -64,6 +85,7 @@ const ContactUs = () => {
                 required
               />
             </div>
+
             <div className="w-full">
               <label
                 htmlFor="email"
@@ -75,12 +97,18 @@ const ContactUs = () => {
                 type="email"
                 id="email"
                 placeholder="سجل بريدك الشخصي"
-                className="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 text-right"
+                className={`w-full p-3 rounded-md border ${
+                  emailError ? "border-red-500" : "border-gray-300"
+                } focus:outline-none focus:ring-2 focus:ring-yellow-400 text-right`}
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleEmailChange}
                 required
               />
+              {emailError && (
+                <div className="text-red-500 text-right mt-2">{emailError}</div>
+              )}
             </div>
+
             <div className="w-full">
               <label
                 htmlFor="message"
@@ -98,6 +126,7 @@ const ContactUs = () => {
                 required
               />
             </div>
+
             <button
               type="submit"
               className="w-1/2 p-3 bg-black text-white rounded-md hover:bg-gray-800 transition"
@@ -177,3 +206,67 @@ const ContactUs = () => {
 };
 
 export default ContactUs;
+
+//  {/* Left Section (unchanged) */}
+//  <div className="w-full md:w-1/2 space-y-8 order-2 md:order-2">
+//  {/* Item 1 */}
+//  <div className="flex flex-col-reverse md:flex-row items-center justify-end">
+//    <div className="me-4">
+//      <h3 className="font-bold text-lg text-center md:text-right">
+//        نقدر لك المساعدة
+//      </h3>
+//      <p className="text-gray-700 text-center md:text-right">
+//        إن كان لديك أي مشكلة في البلد الذي تسافر إليه سنقوم بمساعدتك في
+//        هذا الموضوع.
+//      </p>
+//    </div>
+//    <img
+//      src="./photos/contact1.png"
+//      alt="Help Icon"
+//      className="w-32 h-32 mb-4 md:mb-0"
+//    />
+//  </div>
+
+//  {/* Item 2 */}
+//  <div className="flex flex-col-reverse md:flex-row items-center justify-end">
+//    <div className="me-4">
+//      <h3 className="font-bold text-lg text-center md:text-right">
+//        للتواصل
+//      </h3>
+//      <p className="text-gray-700 text-center md:text-right">
+//        يمكنك التواصل معنا عبر الدوام أو عبر البريد الإلكتروني:
+//        <br />
+//        <a
+//          href="mailto:company@mail.com"
+//          className="text-blue-600 underline text-right"
+//        >
+//          company@mail.com
+//        </a>
+//      </p>
+//    </div>
+//    <img
+//      src="./photos/contact2.png"
+//      alt="Contact Icon"
+//      className="w-32 h-32 mb-4 md:mb-0"
+//    />
+//  </div>
+
+//  {/* Item 3 */}
+//  <div className="flex flex-col-reverse md:flex-row items-center justify-end">
+//    <div className="me-4">
+//      <h3 className="font-bold text-lg text-center md:text-right">
+//        أوقات الدوام
+//      </h3>
+//      <p className="text-gray-700 text-center md:text-right">
+//        يمكنك التواصل معنا يومياً أثناء أوقات الدوام
+//        <br />
+//        من الساعة 9 صباحاً حتى 6 مساءً.
+//      </p>
+//    </div>
+//    <img
+//      src="./photos/contact3.png"
+//      alt="Work Hours Icon"
+//      className="w-32 h-32 mb-4 md:mb-0"
+//    />
+//  </div>
+// </div>
