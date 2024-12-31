@@ -14,8 +14,6 @@ const OurServices = () => {
           throw new Error("Failed to fetch data");
         }
         const data = await response.json();
-        // console.log(data);
-
         setServices(data.data);
       } catch (err) {
         setError(err.message);
@@ -24,6 +22,8 @@ const OurServices = () => {
 
     fetchData();
   }, []);
+
+  const arrowImageSrc = "path-to-your-arrow-image"; // Replace this with the actual path to your image
 
   return (
     <div id="services" className="py-12 px-4 text-center">
@@ -35,12 +35,40 @@ const OurServices = () => {
         مجموعة من خدماتنا
       </h1>
 
+      {/* Arrow Image */}
+      <div className="relative mb-4 md:mb-0">
+        <img
+          src="./photos/arrow.png"
+          alt="Purple Arrow"
+          className="absolute hidden md:block  left-[40%] transform -translate-x-1/2 -rotate-12"
+        />
+        <img
+          src="./photos/arrow.png"
+          alt="Purple Arrow"
+          className="absolute md:hidden mx-auto mb-4 left-11 -rotate-12"
+        />
+      </div>
+
       {/* Services Container */}
-      <div className="flex  flex-col-reverse md:flex-row md:justify-center gap-10 md:gap-52 bg-blue-50 rounded-lg p-6">
+      <div
+        className="
+          flex
+          flex-col-reverse 
+          sm:flex-col 
+          lg:flex-row
+          lg:justify-center
+          gap-10
+          lg:gap-16
+          bg-blue-50
+          rounded-2xl
+          p-6
+          pt-24
+        "
+      >
         {services.map((service, index) => (
           <div
             key={index}
-            className="flex flex-col items-center text-center space-y-4 "
+            className="flex flex-col items-center text-center space-y-4 lg:w-1/4"
           >
             <img
               src={service.icon_link}
@@ -48,7 +76,9 @@ const OurServices = () => {
               className="w-40 h-40"
             />
             <h3 className="text-xl font-bold text-gray-800">{service.title}</h3>
-            <p className="text-gray-600 w-60">{service.description}</p>
+            <p className="text-gray-600 w-full lg:w-60">
+              {service.description}
+            </p>
           </div>
         ))}
       </div>

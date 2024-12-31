@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { HiMiniPlayCircle } from "react-icons/hi2";
-import { IoIosArrowDropleft } from "react-icons/io";
+import { BsMouseFill } from "react-icons/bs";
 import { LuMouse } from "react-icons/lu";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 
@@ -13,7 +13,7 @@ const HeroSection = () => {
       style={{ backgroundImage: "url('./photos/Hero.jpg')" }}
     >
       {/* Navbar */}
-      <nav className="absolute top-0 w-full flex items-center justify-between px-6 py-4 bg-gradient-to-b from-black/50 to-transparent">
+      <nav className="fixed z-10 top-0 w-full flex items-center justify-between px-6 py-4 bg-gradient-to-b from-black/50 to-transparent">
         {/* Logo */}
         <div className="text-white text-xl font-bold md:flex hidden items-center ">
           <div className="me-2">
@@ -25,13 +25,8 @@ const HeroSection = () => {
         {/* Desktop Menu */}
         <ul className="hidden md:flex space-x-6 text-white">
           <li>
-            <a href="#services" className="hover:text-yellow-500">
-              الخدمات
-            </a>
-          </li>
-          <li>
-            <a href="#pricing" className="hover:text-yellow-500">
-              الأسعار
+            <a href="#contact" className="hover:text-yellow-500">
+              اتصل بنا
             </a>
           </li>
           <li>
@@ -40,8 +35,18 @@ const HeroSection = () => {
             </a>
           </li>
           <li>
-            <a href="#contact" className="hover:text-yellow-500">
-              اتصل بنا
+            <a href="#pricing" className="hover:text-yellow-500">
+              الأسعار
+            </a>
+          </li>
+          <li>
+            <a href="#services" className="hover:text-yellow-500">
+              الخدمات
+            </a>
+          </li>
+          <li>
+            <a href="#trips" className="hover:text-yellow-500">
+              الرحلات
             </a>
           </li>
         </ul>
@@ -93,9 +98,12 @@ const HeroSection = () => {
         <div className="mt-12 flex flex-col items-center">
           <p className="text-lg">تابع للأسفل</p>
           <div className="mt-2   rounded-full flex items-center justify-center">
-            <div className=" w-12 h-12 flex justify-center items-center rounded-full animate-bounce">
-              <LuMouse size={32} />
-            </div>
+            <a
+              href="#trips"
+              className="mt-4 w-12 h-12 flex justify-center items-center rounded-full animate-bounce"
+            >
+              <BsMouseFill size={32} />
+            </a>
           </div>
         </div>
       </div>

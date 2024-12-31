@@ -121,7 +121,7 @@ const Plans = () => {
                 </li>
               ))}
             </ul>
-            <button className="mt-4 bg-none text-black  font-bold py-2 px-28 rounded-2xl transition duration-300 hover:text-indigo-500 border border-black hover:border-white group-hover:text-white group-hover:border-white flex items-center justify-center mx-auto space-x-reverse space-x-3">
+            <button className="mt-16 bg-none text-black w-[90%]  font-bold py-2 px-5 rounded-2xl transition duration-300 hover:text-indigo-500 border border-black hover:border-white group-hover:text-white group-hover:border-white flex items-center justify-center mx-auto space-x-reverse space-x-3">
               <span>احجز الآن</span>
               <span className="bg-white text-black rounded-full p-1 text-xl flex items-center justify-center">
                 <MdKeyboardArrowLeft />
