@@ -1,21 +1,48 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { HiMiniPlayCircle } from "react-icons/hi2";
 import { BsMouseFill } from "react-icons/bs";
-import { LuMouse } from "react-icons/lu";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 
 const HeroSection = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Check if the user has scrolled at all
+      if (window.scrollY > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <div
+      id="hero-section"
       className="relative bg-cover bg-center h-screen"
       style={{ backgroundImage: "url('./photos/Hero.jpg')" }}
     >
       {/* Navbar */}
-      <nav className="fixed z-10 top-0 w-full flex items-center justify-between px-6 py-4 bg-gradient-to-b from-black/50 to-transparent">
+      <nav
+        className={`navbar fixed z-10 top-0 w-full flex items-center justify-between px-6 py-4 transition-colors duration-300 ${
+          isScrolled
+            ? "bg-white shadow-md" // Background color after scrolling
+            : "bg-gradient-to-b from-black/50 to-transparent" // Default background
+        }`}
+      >
         {/* Logo */}
-        <div className="text-white text-xl font-bold md:flex hidden items-center ">
+        <div
+          className={`text-xl font-bold md:flex hidden items-center ${
+            isScrolled ? "text-yellow-500 drop-shadow-md" : "text-white"
+          }`}
+        >
           <div className="me-2">
             <HiMiniPlayCircle />
           </div>
@@ -23,29 +50,54 @@ const HeroSection = () => {
         </div>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex space-x-6 text-white">
+        <ul className="hidden md:flex space-x-6">
           <li>
-            <a href="#contact" className="hover:text-yellow-500">
+            <a
+              href="#contact"
+              className={`hover:text-yellow-500 ${
+                isScrolled ? "text-yellow-500 drop-shadow-md" : "text-white"
+              }`}
+            >
               اتصل بنا
             </a>
           </li>
           <li>
-            <a href="#reviews" className="hover:text-yellow-500">
+            <a
+              href="#reviews"
+              className={`hover:text-yellow-500 ${
+                isScrolled ? "text-yellow-500 drop-shadow-md" : "text-white"
+              }`}
+            >
               آراء العملاء
             </a>
           </li>
           <li>
-            <a href="#pricing" className="hover:text-yellow-500">
+            <a
+              href="#pricing"
+              className={`hover:text-yellow-500 ${
+                isScrolled ? "text-yellow-500 drop-shadow-md" : "text-white"
+              }`}
+            >
               الأسعار
             </a>
           </li>
           <li>
-            <a href="#services" className="hover:text-yellow-500">
+            <a
+              href="#services"
+              className={`hover:text-yellow-500 ${
+                isScrolled ? "text-yellow-500 drop-shadow-md" : "text-white"
+              }`}
+            >
               الخدمات
             </a>
           </li>
           <li>
-            <a href="#trips" className="hover:text-yellow-500">
+            <a
+              href="#trips"
+              className={`hover:text-yellow-500 ${
+                isScrolled ? "text-yellow-500 drop-shadow-md" : "text-white"
+              }`}
+            >
               الرحلات
             </a>
           </li>
@@ -57,14 +109,18 @@ const HeroSection = () => {
         >
           ☰
         </button>
-        <div className="text-white text-xl font-bold flex">
+        <div
+          className={`text-xl font-bold flex ${
+            isScrolled ? "text-yellow-500 drop-shadow-md" : "text-white"
+          }`}
+        >
           <div>.رحلاتى</div>
         </div>
       </nav>
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="absolute top-14 left-6 bg-black/70 text-white py-4 px-6 rounded-lg space-y-4 md:hidden">
+        <div className="fixed z-20 top-14 left-6 bg-black/70 text-white py-4 px-6 rounded-lg space-y-4 md:hidden">
           <a href="#services" className="block hover:text-yellow-500">
             الخدمات
           </a>
@@ -97,7 +153,7 @@ const HeroSection = () => {
         </button>
         <div className="mt-12 flex flex-col items-center">
           <p className="text-lg">تابع للأسفل</p>
-          <div className="mt-2   rounded-full flex items-center justify-center">
+          <div className="mt-2 rounded-full flex items-center justify-center">
             <a
               href="#trips"
               className="mt-4 w-12 h-12 flex justify-center items-center rounded-full animate-bounce"

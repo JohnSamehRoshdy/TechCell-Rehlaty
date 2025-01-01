@@ -17,8 +17,15 @@ const ContactUs = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
     setMessage("");
+
+    // Check email validity
+    if (!validateEmail(email)) {
+      setEmailError("يرجى إدخال بريد إلكتروني صالح");
+      return; // Exit the function if the email is invalid
+    }
+
+    setIsSubmitting(true);
 
     try {
       const response = await sendContactForm(name, email, msg);
@@ -206,67 +213,3 @@ const ContactUs = () => {
 };
 
 export default ContactUs;
-
-//  {/* Left Section (unchanged) */}
-//  <div className="w-full md:w-1/2 space-y-8 order-2 md:order-2">
-//  {/* Item 1 */}
-//  <div className="flex flex-col-reverse md:flex-row items-center justify-end">
-//    <div className="me-4">
-//      <h3 className="font-bold text-lg text-center md:text-right">
-//        نقدر لك المساعدة
-//      </h3>
-//      <p className="text-gray-700 text-center md:text-right">
-//        إن كان لديك أي مشكلة في البلد الذي تسافر إليه سنقوم بمساعدتك في
-//        هذا الموضوع.
-//      </p>
-//    </div>
-//    <img
-//      src="./photos/contact1.png"
-//      alt="Help Icon"
-//      className="w-32 h-32 mb-4 md:mb-0"
-//    />
-//  </div>
-
-//  {/* Item 2 */}
-//  <div className="flex flex-col-reverse md:flex-row items-center justify-end">
-//    <div className="me-4">
-//      <h3 className="font-bold text-lg text-center md:text-right">
-//        للتواصل
-//      </h3>
-//      <p className="text-gray-700 text-center md:text-right">
-//        يمكنك التواصل معنا عبر الدوام أو عبر البريد الإلكتروني:
-//        <br />
-//        <a
-//          href="mailto:company@mail.com"
-//          className="text-blue-600 underline text-right"
-//        >
-//          company@mail.com
-//        </a>
-//      </p>
-//    </div>
-//    <img
-//      src="./photos/contact2.png"
-//      alt="Contact Icon"
-//      className="w-32 h-32 mb-4 md:mb-0"
-//    />
-//  </div>
-
-//  {/* Item 3 */}
-//  <div className="flex flex-col-reverse md:flex-row items-center justify-end">
-//    <div className="me-4">
-//      <h3 className="font-bold text-lg text-center md:text-right">
-//        أوقات الدوام
-//      </h3>
-//      <p className="text-gray-700 text-center md:text-right">
-//        يمكنك التواصل معنا يومياً أثناء أوقات الدوام
-//        <br />
-//        من الساعة 9 صباحاً حتى 6 مساءً.
-//      </p>
-//    </div>
-//    <img
-//      src="./photos/contact3.png"
-//      alt="Work Hours Icon"
-//      className="w-32 h-32 mb-4 md:mb-0"
-//    />
-//  </div>
-// </div>
