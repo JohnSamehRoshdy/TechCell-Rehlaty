@@ -72,7 +72,7 @@ const Reviews = () => {
         {reviews.slice(currentIndex, currentIndex + 3).map((review) => (
           <div
             key={review.id}
-            className="bg-purple-50 p-4 rounded-lg w-1/3 text-right "
+            className="bg-purple-50 p-4 rounded-lg w-1/3 text-right h-52 "
           >
             <div className="text-yellow-500 text-xl mb-2  ">
               {"★".repeat(review.stars)}

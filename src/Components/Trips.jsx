@@ -15,6 +15,7 @@ const CardCarousel = () => {
           throw new Error("Failed to fetch data");
         }
         const data = await response.json();
+        console.log(data);
         const trips = data.data;
         // console.log(trips);
         const formattedData = trips.map((item) => ({
@@ -31,7 +32,7 @@ const CardCarousel = () => {
 
     fetchData();
   }, []);
-  console.log(cards);
+
   const nextSlide = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex + 4 < cards.length ? prevIndex + 4 : 0
