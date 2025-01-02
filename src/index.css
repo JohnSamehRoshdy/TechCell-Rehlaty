@@ -7,23 +7,3 @@
 body {
   font-family: "Lama Sans", sans-serif;
 }
-
-/* Default navbar styles
-.navbar {
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent);
-  color: white;
-  box-shadow: none;
-  transition: all 0.3s ease-in-out;
-} */
-
-/* Change styles when scrolled */
-html:not(:root) .navbar {
-  background: white;
-  color: orange;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Ensure hover effects work with the new text color */
-.navbar a:hover {
-  color: yellow;
-}

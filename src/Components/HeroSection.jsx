@@ -109,13 +109,14 @@ const HeroSection = () => {
         >
           ☰
         </button>
-        <div
-          className={`text-xl font-bold flex ${
+        <a
+          href="hero-section"
+          className={`text-xl font-bold flex p-1 ${
             isScrolled ? "text-yellow-500 drop-shadow-md" : "text-white"
           }`}
         >
           <div>.رحلاتى</div>
-        </div>
+        </a>
       </nav>
 
       {/* Mobile Menu */}
@@ -141,7 +142,7 @@ const HeroSection = () => {
         <h1 className="text-4xl md:text-6xl font-bold leading-tight">
           سافر معنا إلى العالم
         </h1>
-        <p className="mt-4 text-lg md:text-xl">
+        <p className="mt-4 text-lg md:text-xl p-2">
           نوفر لك أفضل الرحلات التي تحتاجها لجميع البلدان وخدمات مخصصة لك
           ولعائلتك
         </p>
@@ -151,8 +152,15 @@ const HeroSection = () => {
           </div>
           <div>احجز الآن</div>
         </button>
+
+        {/* Add the white arrow image */}
         <div className="mt-12 flex flex-col items-center">
-          <p className="text-lg">تابع للأسفل</p>
+          <img
+            src="./photos/arrow1.png" // Replace this with the actual path to your image
+            alt="White arrow"
+            className="w-32 h-32 absolute md:left-[38%] md:top-[48%] rotate-12 left-[10%] top-[55%] " // Adjust size as needed
+          />
+          <p className="text-lg mt-4">تابع للأسفل</p>
           <div className="mt-2 rounded-full flex items-center justify-center">
             <a
               href="#trips"
