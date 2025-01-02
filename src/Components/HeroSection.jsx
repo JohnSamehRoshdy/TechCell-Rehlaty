@@ -109,14 +109,13 @@ const HeroSection = () => {
         >
           ☰
         </button>
-        <a
-          href="hero-section"
+        <div
           className={`text-xl font-bold flex p-1 ${
             isScrolled ? "text-yellow-500 drop-shadow-md" : "text-white"
           }`}
         >
-          <div>.رحلاتى</div>
-        </a>
+          <a href="#hero-section">.رحلاتى</a>
+        </div>
       </nav>
 
       {/* Mobile Menu */}
